@@ -14,24 +14,26 @@ function newsReceived(news) {
   };
 }
 
-/* export function fetchNews(fakeNews) {
-  return dispatch => {
-    dispatch(newsReceived(fakeNews));
-  };
-} */
-
-export function fetchNews(fakeNews) {
-  // debugger;
-  console.log("presend");
-  return dispatch => {
-    return fetch(`http://localhost:5000/news`).then(response => {
-      console.log(response);
-    });
+function newsItemLoading() {
+  return {
+    type: actionTypes.NEWSITEM_LOADING
   };
 }
 
-export function fetchNewsItem(fakeNewsItem) {
+export function fetchNews(fakeNews) {
   return dispatch => {
-    dispatch(newsItemReceived(fakeNewsItem));
+    return fetch(`http://localhost:5000/news`)
+      .then(response => response.json())
+      .then(data => dispatch(newsReceived(data.data)))
+      .catch(e => console.log(e));
+  };
+}
+
+export function fetchNewsItem(id) {
+  return dispatch => {
+    return fetch(`http://localhost:5000/news/${id}`)
+      .then(response => response.json())
+      .then(data => dispatch(newsItemReceived(data.data)))
+      .catch(e => console.log(e));
   };
 }
