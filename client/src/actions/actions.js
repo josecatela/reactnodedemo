@@ -14,9 +14,19 @@ function newsReceived(news) {
   };
 }
 
-export function fetchNews(fakeNews) {
+/* export function fetchNews(fakeNews) {
   return dispatch => {
     dispatch(newsReceived(fakeNews));
+  };
+} */
+
+export function fetchNews(fakeNews) {
+  // debugger;
+  console.log("presend");
+  return dispatch => {
+    return fetch(`http://localhost:5000/news`).then(response => {
+      console.log(response);
+    });
   };
 }
 
